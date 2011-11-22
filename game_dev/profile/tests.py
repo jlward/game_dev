@@ -6,11 +6,15 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
+from django.contrib.auth.models import User
+
+#FIXME need to namespace everything correctly should be:
+#from game_dev.profile.models import Profile
+from profile.models import Profile
 
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class ProfileTestCase(TestCase):
+    def test_simple(self):
+        user = User.objects.create()
+        profile = Profile.objects.create(user=user)
+        self.assertEqual(user.profile, profile)
